@@ -62,7 +62,7 @@
 <body>
     <h1>按鈕事件紀錄</h1>
     <form id="delete-form">
-        <ul id="button-logs"></ul>
+        <ul id="button-logs1"></ul>
         <button type="button" id="delete-button">刪除選中的紀錄</button>
         <button type="button" id="return-button">返回任務頁面</button>
         <br>*刪除紀錄後，返回接任務頁面才會刷新
@@ -72,7 +72,7 @@
         window.onload = function() {
             const params = new URLSearchParams(window.location.search);
             const logs = JSON.parse(decodeURIComponent(params.get('logs'))) || [];
-            const buttonLogsList = document.getElementById('button-logs');
+            const buttonLogsList = document.getElementById('button-logs1');
 
             logs.forEach((log, index) => {
                 const listItem = document.createElement('li');
@@ -101,7 +101,7 @@
                     indexesToDelete.forEach(index => {
                         logs.splice(index, 1);
                     });
-                    localStorage.setItem('buttonLogs', JSON.stringify(logs));
+                    localStorage.setItem('buttonLogs1', JSON.stringify(logs));
                     window.location.reload();
                 } else {
                     alert('密碼不正確。');
