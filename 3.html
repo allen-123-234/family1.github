@@ -224,7 +224,7 @@
         const password = "1207";
     
         // 加載按鈕事件紀錄
-        let buttonLogs1 = JSON.parse(localStorage.getItem('buttonLogs')) || [];
+        let buttonLogs1 = JSON.parse(localStorage.getItem('buttonLogs1')) || [];
     
         // 管理按鈕事件
         const setCounterBtn = document.getElementById('set-counter');
@@ -267,7 +267,7 @@
                 timestamp: timestamp,
                 button: buttonName
             });
-            localStorage.setItem('buttonLogs', JSON.stringify(buttonLogs));
+            localStorage.setItem('buttonLogs1', JSON.stringify(buttonLogs));
             console.log('按鈕事件記錄:', buttonName, timestamp);
         }
     
