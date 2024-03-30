@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>接任務網站</title>
+    <style>
+        /* CSS 樣式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* 任務列表樣式 */
+        #mission-list {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        #mission-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #mission-list li {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        #mission-list h3 {
+            margin-top: 0;
+        }
+
+        .complete-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            float: right;
+        }
+
+        .complete-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* 管理按鈕樣式 */
+        #admin-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #333;
+            padding: 10px 0;
+            z-index: 999;
+        }
+
+        #admin-buttons button {
+            margin: 0 10px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #admin-buttons button:hover {
+            background-color: #005f6b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>接任務網站</h1>
+        <nav>
+            <ul>
+                
+                <li><a href="#">首頁</a></li>
+                <li><a href="#">任務列表</a></li>
+                <li><a href="#">關於我們</a></li>
+                <li><a href="#">聯繫我們</a></li>
+            </ul>
+            <h6>*看書比3c時間為5:1(例如看書50分鐘可用10分鐘3c)</h6>
+            <h6>*3c最多只可累計一個禮拜，為用完的時間則除以十後算零用錢</h6>
+            <h6>*若有去學校，一天最少有30分鐘</h6>
+        </nav>
+    </header>
+
+    <div id="admin-buttons">
+        <button id="set-counter">設置計數器值</button>
+        <button id="reset-counter">重置計數器</button>
+        <button id="record-page-btn">查看按鈕紀錄</button>
+    </div>
+
+    <main>
+        <section id="mission-list">
+            <h2>任務列表</h2><br>
+            <h6>特別任務</h6><br>
+            <ul>
+            <li>
+                <h3>考試90分以上</h3>
+                
+                <button class="complete-btn" data-increment="10">完成任務（10分鐘）</button>
+            </li>
+            </ul>
+            <h6>一般任務</h6>
+            <ul>
+                <li>
+                    <h3>吸地板</h3>
+                    
+                    <button class="complete-btn" data-increment="5">完成任務（5分鐘）</button>
+                </li>
+                <li>
+                    <h3>掃廁所</h3>
+                    
+                    <button class="complete-btn" data-increment="10">完成任務（10分鐘）</button>
+                </li>
+                <li>
+                    <h3>擦桌子</h3>
+                    
+                    <button class="complete-btn" data-increment="2">完成任務（2分鐘）</button>
+                </li>
+                <li>
+                    <h3>幫大家洗碗</h3>
+                    
+                    <button class="complete-btn" data-increment="5">完成任務（5分鐘）</button>
+                </li>
+                <li>
+                    <h3>丟垃圾</h3>
+                    
+                    <button class="complete-btn" data-increment="5">完成任務（5分鐘）</button>
+                </li>
+                <li>
+                    <h3>拿uber</h3>
+                    
+                    <button class="complete-btn" data-increment="5">完成任務（5分鐘）</button>
+                </li>
+                <li>
+                    <h3>起床穿好衣服等出門</h3>
+                    
+                    <button class="complete-btn" data-increment="10">完成任務（10分鐘）</button>
+                </li>
+                <li>
+                    <h3>不挑食吃完爸爸點的餐(不是自己提的)</h3>
+                    
+                    <button class="complete-btn" data-increment="10">完成任務（10分鐘）</button>
+                </li>
+                <li>
+                    <h3>洗衣服</h3>
+                    
+                    <button class="complete-btn" data-increment="5">完成任務（5分鐘）</button>
+                </li>
+                <li>
+                    <h3>收衣服(包括分衣服並拿到各房間)</h3>
+                    
+                    <button class="complete-btn" data-increment="5">完成任務（5分鐘）</button>
+                </li>
+                <li>
+                    <h3>吃藥(整天的)</h3>
+                    
+                    <button class="complete-btn" data-increment="5">完成任務（5分鐘）</button>
+                </li>
+                <!-- 在這裡添加更多的任務 -->
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+ 
+        <div id="counter">目前3c累計時間: <span id="click-count">0</span>分鐘</div>
+    </footer>
+
+    <script>
+        // 全局變量以存儲密碼
+        const password = "1";
+    
+        // 加載按鈕事件紀錄
+        let buttonLogs = JSON.parse(localStorage.getItem('buttonLogs')) || [];
+    
+        // 管理按鈕事件
+        const setCounterBtn = document.getElementById('set-counter');
+        const resetCounterBtn = document.getElementById('reset-counter');
+    
+        setCounterBtn.addEventListener('click', function() {
+            const enteredPassword = prompt('請輸入密碼:');
+            if (enteredPassword === password) {
+                const newValue = prompt('請輸入新的計數器值:');
+                if (!isNaN(newValue)) {
+                    localStorage.setItem('clickCount', newValue);
+                    updateCounterDisplay();
+                } else {
+                    alert('請輸入有效的數字。');
+                }
+            } else {
+                alert('密碼不正確。');
+            }
+        });
+    
+        resetCounterBtn.addEventListener('click', function() {
+            const enteredPassword = prompt('請輸入密碼:');
+            if (enteredPassword === password) {
+                localStorage.setItem('clickCount', 0);
+                updateCounterDisplay();
+            } else {
+                alert('密碼不正確。');
+            }
+        });
+    
+        const recordPageBtn = document.getElementById('record-page-btn');
+        recordPageBtn.addEventListener('click', function() {
+            // 導向到另一個頁面並將按鈕紀錄作為查詢參數傳遞
+            window.location.href = '2.html?logs=' + encodeURIComponent(JSON.stringify(buttonLogs));
+        });
+    
+        function recordButtonEvent(buttonName) {
+            const timestamp = new Date().toLocaleString();
+            buttonLogs.push({
+                timestamp: timestamp,
+                button: buttonName
+            });
+            localStorage.setItem('buttonLogs', JSON.stringify(buttonLogs));
+            console.log('按鈕事件記錄:', buttonName, timestamp);
+        }
+    
+        function updateCounterDisplay() {
+            const clickCount = localStorage.getItem('clickCount') || 0;
+            document.getElementById('click-count').textContent = clickCount;
+        }
+    
+        const completeButtons = document.querySelectorAll('.complete-btn');
+        completeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const enteredPassword = prompt('請輸入密碼:');
+                if (enteredPassword === password) {
+                    console.log('任務已完成');
+                    alert('任務已完成。');
+                    const increment = parseInt(this.getAttribute('data-increment')) || 0;
+                    updateCounter(increment);
+                    recordButtonEvent('完成任務（+' + increment + '）');
+                } else {
+                    alert('密碼不正確。');
+                }
+            });
+        });
+    
+        if (!localStorage.getItem('clickCount')) {
+            localStorage.setItem('clickCount', 0);
+        }
+    
+        window.onload = function() {
+            updateCounterDisplay();
+        };
+    
+        function updateCounter(increment) {
+            let clickCount = parseInt(localStorage.getItem('clickCount'));
+            clickCount += increment;
+            localStorage.setItem('clickCount', clickCount);
+            updateCounterDisplay();
+        }
+    </script>
+    
+</body>
+</html>

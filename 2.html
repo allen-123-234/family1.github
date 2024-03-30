@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>按鈕事件紀錄頁面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button[type="button"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>按鈕事件紀錄</h1>
+    <form id="delete-form">
+        <ul id="button-logs"></ul>
+        <button type="button" id="delete-button">刪除選中的紀錄</button>
+        <button type="button" id="return-button">返回任務頁面</button>
+        <br>*刪除紀錄後，返回接任務頁面才會刷新
+    </form>
+
+    <script>
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const logs = JSON.parse(decodeURIComponent(params.get('logs'))) || [];
+            const buttonLogsList = document.getElementById('button-logs');
+
+            logs.forEach((log, index) => {
+                const listItem = document.createElement('li');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.name = 'delete-checkbox';
+                checkbox.value = index;
+                listItem.textContent = `${log.timestamp}: ${log.button}`;
+                listItem.prepend(checkbox);
+                buttonLogsList.appendChild(listItem);
+            });
+
+            const password = "1"; // 更改為您的密碼
+            const deleteButton = document.getElementById('delete-button');
+            deleteButton.addEventListener('click', function() {
+                const enteredPassword = prompt('請輸入密碼:');
+                if (enteredPassword === password) {
+                    const checkboxes = document.getElementsByName('delete-checkbox');
+                    const indexesToDelete = [];
+                    checkboxes.forEach(checkbox => {
+                        if (checkbox.checked) {
+                            indexesToDelete.push(parseInt(checkbox.value));
+                        }
+                    });
+                    indexesToDelete.sort((a, b) => b - a);
+                    indexesToDelete.forEach(index => {
+                        logs.splice(index, 1);
+                    });
+                    localStorage.setItem('buttonLogs', JSON.stringify(logs));
+                    window.location.reload();
+                } else {
+                    alert('密碼不正確。');
+                }
+            });
+
+            const returnButton = document.getElementById('return-button');
+            returnButton.addEventListener('click', function() {
+                window.location.href = '3.html';
+            });
+        };
+    </script>
+</body>
+</html>
