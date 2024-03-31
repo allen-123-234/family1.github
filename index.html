@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>任務系統</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  #tasksContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  #counter {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .task {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .task:last-child {
+    border-bottom: none;
+  }
+
+  .task span {
+    margin-right: 20px;
+  }
+
+  .completeBtn {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .completeBtn:hover {
+    background-color: #45a049;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  #viewRecordsBtn {
+    background-color: #2196F3;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  #viewRecordsBtn:hover {
+    background-color: #0b7dda;
+  }
+
+  .resetBtn,
+  .setCounterBtn {
+    background-color: #ff9800;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .resetBtn:hover,
+  .setCounterBtn:hover {
+    background-color: #f57c00;
+  }
+</style>
+</head>
+<body>
+
+<div id="counter">目前3C可使用時間: <span id="counterValue">0</span>分鐘</div>
+
+<div id="tasksContainer">
+  <!-- 任务列表 -->
+</div>
+
+<button id="viewRecordsBtn" onclick="viewRecords()">查看紀錄</button>
+<button class="resetBtn" onclick="resetCounter()">重置計數器</button>
+<button class="setCounterBtn" onclick="setCounter()">設置計數器值</button>
+
+<script>
+function viewRecords() {
+  window.location.href = "1.html";
+}
+
+function resetCounter() {
+  const password = prompt("请输入密码:");
+  if (password === "1") { // 在这里替换成您的密码
+    localStorage.removeItem('counter');
+    document.getElementById('counterValue').textContent = '0';
+  } else {
+    alert("密码错误！");
+  }
+}
+
+function setCounter() {
+  const password = prompt("请输入密码:");
+  if (password === "1") { // 在这里替换成您的密码
+    const newValue = prompt("请输入新的计数器值:");
+    if (!isNaN(newValue)) {
+      localStorage.setItem('counter', newValue);
+      document.getElementById('counterValue').textContent = newValue;
+    } else {
+      alert("请输入有效的数字！");
+    }
+  } else {
+    alert("密码错误！");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  const tasksContainer = document.getElementById('tasksContainer');
+  const counterValue = document.getElementById('counterValue');
+
+  let globalCounter = parseInt(localStorage.getItem('counter')) || 0;
+  counterValue.textContent = globalCounter;
+
+  // 加载任务列表
+  loadTasks();
+
+  // 加载任务列表的函数
+  function loadTasks() {
+    const tasks = [
+      { name: '吸地板-5分鐘', increase: 5 },
+      { name: '掃廁所-10分鐘', increase: 10 },
+      { name: '擦桌子-2分鐘', increase: 2 },
+      { name: '幫大家洗碗-5分鐘', increase: 5 },
+      { name: '丟垃圾-5分鐘', increase: 5 },
+      { name: '拿uber-5分鐘', increase: 5 },
+      { name: '起床穿好衣服等出門-10分鐘', increase: 10 },
+      { name: '不挑食吃完爸爸點的餐(不是自己提的)-10分鐘', increase: 10 },
+      { name: '洗衣服-5分鐘', increase: 5 },
+      { name: '收衣服(包括分衣服拿到各房間)-5分鐘', increase: 5 },
+      { name: '吃藥(整天的)-5分鐘', increase: 5 },
+      { name: '分襪子(不一定每天都有)-10分鐘', increase: 10 },
+      { name: '考試90分以上-10分鐘', increase: 10 },
+    ];
+
+    tasks.forEach(task => addTask(task.name, task.increase));
+  }
+
+  // 添加任务的函数
+  function addTask(name, increase) {
+    const taskDiv = document.createElement('div');
+    taskDiv.className = 'task';
+    taskDiv.innerHTML = `
+      <span>${name}</span>
+      <button class="completeBtn">完成任務</button>
+    `;
+    tasksContainer.appendChild(taskDiv);
+
+    const completeBtn = taskDiv.querySelector('.completeBtn');
+    completeBtn.addEventListener('click', function() {
+      const password = prompt("请输入密码:");
+      if (password === "1") { // 在这里替换成您的密码
+        const now = new Date();
+        const time = now.toLocaleString();
+        globalCounter += increase;
+        counterValue.textContent = globalCounter;
+        saveCounter(globalCounter);
+        saveToHtml1(time, name, increase);
+      } else {
+        alert("密码错误！");
+      }
+    });
+  }
+
+  // 保存计数器到本地存储
+  function saveCounter(counter) {
+    localStorage.setItem('counter', counter);
+  }
+
+  // 添加记录到 1.html
+  function saveToHtml1(time, name, increase) {
+    const record = `${time} - 任務：${name}，增加3C時間${increase}分鐘。`;
+    const records = JSON.parse(localStorage.getItem('html1Records')) || [];
+    records.push(record);
+    localStorage.setItem('html1Records', JSON.stringify(records));
+  }
+});
+</script>
+
+</body>
+</html>
