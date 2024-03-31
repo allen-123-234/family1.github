@@ -113,7 +113,7 @@ function viewRecords() {
 
 function resetCounter() {
   const password = prompt("请输入密码:");
-  if (password === "1") { // 在这里替换成您的密码
+  if (password === "1207") { // 在这里替换成您的密码
     localStorage.removeItem('counter');
     document.getElementById('counterValue').textContent = '0';
   } else {
@@ -123,7 +123,7 @@ function resetCounter() {
 
 function setCounter() {
   const password = prompt("请输入密码:");
-  if (password === "1") { // 在这里替换成您的密码
+  if (password === "1207") { // 在这里替换成您的密码
     const newValue = prompt("请输入新的计数器值:");
     if (!isNaN(newValue)) {
       localStorage.setItem('counter', newValue);
@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const completeBtn = taskDiv.querySelector('.completeBtn');
     completeBtn.addEventListener('click', function() {
       const password = prompt("请输入密码:");
-      if (password === "1") { // 在这里替换成您的密码
+      if (password === "1207") { // 在这里替换成您的密码
         const now = new Date();
         const time = now.toLocaleString();
         globalCounter += increase;
